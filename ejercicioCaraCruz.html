@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios</title>
+</head>
+<body>
+    <script>
+        /* Crear el juego cara o cruz.
+        Nosotros siempre seremos cara que sera el numero 1
+        El programa tienes que decidir un numero aleatorio entre
+        1 y 2. Si sale uno ganamos, si sale 2 perdemos.*/
+
+        var numAleatorio = Math.floor(Math.random() * (2-1+1) + 1);
+        console.log("La moneda se esta tirando.... ");
+        var player1 = 1;
+        if(numAleatorio==1){
+            numAleatorio="Cara"
+        }else{
+            numAleatorio="Cruz"
+        }
+        if(numAleatorio == "Cara"){
+            console.log("Salio ",numAleatorio,".Has ganado");
+        }else{
+            console.log("Salio ",numAleatorio,".Has perdido");
+        }
+    </script>
+</body>
+</html>
