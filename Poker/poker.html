@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Poker</title>
+</head>
+
+<body>
+    <button onclick="abrirVentana()">Play</button>
+    <button onclick="cerrarVentana()">CerrarJuego</button>
+    <button onclick="cerrarTodo()">CerrarTodo</button>
+    <button onclick="refrescar()">Refrescar</button>
+    <script>
+        var cards = ["cards/2_of_clubs.png", "cards/2_of_diamonds.png", "cards/2_of_hearts.png", "cards/2_of_spades.png",
+            "cards/3_of_clubs.png", "cards/3_of_diamonds.png", "cards/3_of_hearts.png", "cards/3_of_spades.png",
+            "cards/4_of_clubs.png", "cards/4_of_diamonds.png", "cards/4_of_hearts.png", "cards/4_of_spades.png",
+            "cards/5_of_clubs.png", "cards/5_of_diamonds.png", "cards/5_of_hearts.png", "cards/5_of_spades.png",
+            "cards/6_of_clubs.png", "cards/6_of_diamonds.png", "cards/6_of_hearts.png", "cards/6_of_spades.png",
+            "cards/7_of_clubs.png", "cards/7_of_diamonds.png", "cards/7_of_hearts.png", "cards/7_of_spades.png",
+            "cards/8_of_clubs.png", "cards/8_of_diamonds.png", "cards/8_of_hearts.png", "cards/8_of_spades.png",
+            "cards/9_of_clubs.png", "cards/9_of_diamonds.png", "cards/9_of_hearts.png", "cards/9_of_spades.png",
+            "cards/10_of_clubs.png", "cards/10_of_diamonds.png", "cards/10_of_hearts.png", "cards/10_of_spades.png",
+            "cards/ace_of_clubs.png", "cards/ace_of_diamonds.png", "cards/ace_of_hearts.png", "cards/ace_of_spades.png", "cards/ace_of_spades2.png",
+            "cards/black_joker.png", "cards/jack_of_clubs.png", "cards/jack_of_clubs2.png", "cards/jack_of_diamonds.png", "cards/jack_of_diamonds2.png",
+            "cards/jack_of_hearts.png", "cards/jack_of_hearts2.png", "cards/jack_of_club.png", "cards/jack_of_spades.png", "cards/jack_of_spades2.png",
+            "cards/king_of_clubs.png", "cards/king_of_clubs2.png", "cards/king_of_diamonds.png", "cards/king_of_diamonts2.png", "cards/king_of_hearts.png",
+            "cards/king_of_hearts2.png", "cards/king_of_spades.png", "cards/king_of_spades2.png", "cards/queen_of_clubs.png", "cards/queen_of_clubs2.png",
+            "cards/queen_of_diamonds.png", "cards/queen_of_diamonds2.png", "cards/queen_of_hearts.png", "cards/queen_of_hearts2.png",
+            "cards/queen_of_spades.png", "cards/queen_of_spades2.png", "cards/red_joker.png"];
+
+        let ventana;
+
+        function abrirVentana() {
+            ventana = window.open("", "", "width=800px,height=300px");
+            const cartas = obtenerCartas();
+            mostrarCartas(cartas);
+        }
+        function cerrarVentana() {
+            ventana.close();
+        }
+        function cerrarTodo() {
+            ventana.close();
+            window.close();
+        }
+        function refrescar() {
+            ventana.location.reload();
+        }
+        function obtenerCartas() {
+            const cartas = [];
+            for (let i = 0; i < 5; i++) {
+                const indice = Math.floor(Math.random() * cards.length);
+                const carta = cards.splice(indice, 1)[0];
+                cartas.push(carta);
+            }
+            return cartas;
+        }
+        function ganador(cartas){
+            const count = {};
+            for(const carta of cartas){
+                const numCarta = carta.split("_")[0];
+                if(count[numCarta]){
+                    return "Has ganado con una pareja";
+                }
+                count[numCarta] = 1;
+            }
+            return "Has perdido";
+        }
+        function mostrarCartas(cartas) {
+            const contenedor = ventana.document.createElement("div");
+        
+            for (const carta of cartas) {
+                const imagen = ventana.document.createElement("img");
+                imagen.src = carta;
+                imagen.width = 100;
+                imagen.height = 150;
+                contenedor.appendChild(imagen);
+            }
+            const bottonPlay = ventana.document.createElement("button")
+            bottonPlay.textContent = "Play";
+            bottonPlay.addEventListener("click",refrescar);
+
+            const resultado = ganador(cartas);
+            const resultadoGanador = ventana.document.createElement("p");
+            resultadoGanador.textContent = resultado;
+        
+            ventana.document.body.appendChild(contenedor);
+            ventana.document.body.appendChild(bottonPlay);
+            ventana.document.body.appendChild(resultadoGanador);
+        }
+    </script>
+</body>
+</html>
